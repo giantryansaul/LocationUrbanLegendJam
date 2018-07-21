@@ -9,10 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2b9828aa3574e24874ab5cd5a1aff89, type: 3}
-  m_Name: SampleItem
+  m_Name: UncommonSampleItem
   m_EditorClassIdentifier: 
-  Name: Sample
-  Description: This is my sample item
-  Model: {fileID: 1577880156989960, guid: 9a29cf5cbcb95a941915bc41430f214e, type: 2}
-  Common: 1
-  Image: {fileID: 21300000, guid: f98ca583e42f68e47bfb1021409de126, type: 3}
+  Name: Uncommon Item
+  Description: This is my uncommon item
+  Model: {fileID: 1001585376548914, guid: 0310b4caac91d6648b4e1865c748c432, type: 2}
+  Common: 0
+  Image: {fileID: 21300000, guid: df4b49bce9c77c44b95674e6c1249cfb, type: 3}
