@@ -6,17 +6,13 @@ using UnityEngine;
 public class ItemManager : MonoBehaviour
 {
 
-	[SerializeField] private Item[] _itemStore;
+	[SerializeField] private Item[] _itemStore; // List of Item objects (look in the Items folder)
 	private List<int> _availableItems;
 	[SerializeField] private GameObject _itemPrefab;
 	
 	void Start ()
 	{
 		PopulateAvailableItems();
-	}
-	
-	void Update () {
-		
 	}
 
 	public void SpawnItemNearPlayerPosition(Vector3 playerPosition, float minDist = 10f, float maxDist = 20.0f)

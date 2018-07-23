@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor.Experimental.UIElements.GraphView;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-
 	public GameObject Player;
 	private ItemManager ItemManager;
 	[SerializeField] private Inventory Inventory;
+	[SerializeField] private PickupMenu ItemPickupMenu;
 
 	private float _timeSinceItemSpawn;
 	private float _nextSpawnTime;
@@ -16,7 +18,6 @@ public class GameController : MonoBehaviour
 	{
 		ItemManager = GetComponent<ItemManager>();
 		_nextSpawnTime = 2f;
-
 	}
 	
 	// Main game loop
@@ -51,13 +52,30 @@ public class GameController : MonoBehaviour
 //		}
 	}
 
+	private void LocationTouched(GameObject obj)
+	{
+		if (obj.CompareTag("location"))
+		{
+			var location = obj.GetComponent<Location>();
+		}
+	}
+
 	private void ItemTouched(GameObject obj)
 	{
-		Debug.Log(obj.name);
 		if (obj.CompareTag("item"))
 		{
 			var item = obj.GetComponent<ItemBehavior>();
+			// Pickup item UI goes here
+//			if (Inventory.CanAddToInventory())
+//			{
+//				ItemPickupMenu.PickupItem(item.ItemReference);
+//			}
+//			else
+//			{
+//				ItemPickupMenu.CannotPickupItem(item.ItemReference);
+//			}
 			Inventory.AddToInventory(item.ItemStoreId, item.ItemReference);
+			//EventManager.AddEvent("added item " + item.name)
 			Destroy(obj);
 		}
 	}

@@ -9,7 +9,6 @@ public class ItemBehavior : MonoBehaviour
     public void InitizlizeItem(int id, Item item)
     {
         _itemModel = Instantiate(item.Model, transform);
-//        _itemModel.tag = "item";
         ItemStoreId = id;
         ItemReference = item;
     }
