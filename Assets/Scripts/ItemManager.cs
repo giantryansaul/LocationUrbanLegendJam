@@ -6,7 +6,7 @@ using UnityEngine;
 public class ItemManager : MonoBehaviour
 {
 
-	[SerializeField] private Item[] _itemStore;
+	[SerializeField] private Item[] _itemStore; // List of Item objects (look in the Items folder)
 	private List<int> _availableItems;
 	[SerializeField] private GameObject _itemPrefab;
 	
@@ -14,12 +14,8 @@ public class ItemManager : MonoBehaviour
 	{
 		PopulateAvailableItems();
 	}
-	
-	void Update () {
-		
-	}
 
-	public void SpawnItemNearPlayerPosition(Vector3 playerPosition, float minDist = 10f, float maxDist = 20.0f)
+	public void SpawnRandomItemNearPlayerPosition(Vector3 playerPosition, float minDist = 10f, float maxDist = 20.0f)
 	{
 		var itemIndex = _availableItems[Random.Range(0, _availableItems.Count)];
 		var item = Instantiate(_itemPrefab);
@@ -44,5 +40,10 @@ public class ItemManager : MonoBehaviour
 		pos.y = 5;
 		pos.z = center.y + Random.Range(minRadius, maxRadius) * Mathf.Cos(ang * Mathf.Deg2Rad);
 		return pos;
+	}
+
+	public Item GetItemById(int id)
+	{
+		return _itemStore[id];
 	}
 }

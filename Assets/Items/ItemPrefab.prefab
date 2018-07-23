@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemStoreId: 0
+  ItemReference: {fileID: 0}
 --- !u!135 &135534116904738240
 SphereCollider:
   m_ObjectHideFlags: 1

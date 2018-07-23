@@ -1,13 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor.Experimental.UIElements.GraphView;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-
 	public GameObject Player;
 	private ItemManager ItemManager;
 	[SerializeField] private Inventory Inventory;
+	[SerializeField] private PickupMenu ItemPickupMenu;
 
 	private float _timeSinceItemSpawn;
 	private float _nextSpawnTime;
@@ -16,7 +18,6 @@ public class GameController : MonoBehaviour
 	{
 		ItemManager = GetComponent<ItemManager>();
 		_nextSpawnTime = 2f;
-
 	}
 	
 	// Main game loop
@@ -38,7 +39,8 @@ public class GameController : MonoBehaviour
 			var hit = new RaycastHit();
 			var mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 			Physics.Raycast(mouseRay, out hit, Mathf.Infinity);
-			ItemTouched(hit.collider.gameObject);
+			if (hit.collider != null)
+				ObjectTouched(hit.collider.gameObject);
 		}
 		
 		// Touch controls
@@ -51,15 +53,40 @@ public class GameController : MonoBehaviour
 //		}
 	}
 
-	private void ItemTouched(GameObject obj)
+	private void ObjectTouched(GameObject obj)
 	{
-		Debug.Log(obj.name);
 		if (obj.CompareTag("item"))
 		{
-			var item = obj.GetComponent<ItemBehavior>();
-			Inventory.AddToInventory(item.ItemStoreId, item.ItemReference);
-			Destroy(obj);
+			PickupItemMenu(obj);
 		}
+		
+		if (obj.CompareTag("location"))
+		{
+			EnterLocationMenu(obj);
+		}
+	}
+
+	private static void EnterLocationMenu(GameObject obj)
+	{
+		var location = obj.GetComponent<Location>();
+		// This would be where events are added, Ex:
+		//EventManager.EnteredLocation()
+	}
+
+	private void PickupItemMenu(GameObject obj)
+	{
+		var item = obj.GetComponent<ItemBehavior>();
+		// Pickup item UI goes here
+		if (Inventory.CanAddToInventory())
+		{
+			ItemPickupMenu.PickupItemMenu(item.ItemStoreId, obj);
+		}
+		else
+		{
+			ItemPickupMenu.CannotPickupItemMenu(item.ItemStoreId);
+		}
+		// This would be where events are added, Ex:
+		//EventManager.FoundItem()
 	}
 
 	private IEnumerator SpawnItemNearPlayer()
@@ -68,7 +95,7 @@ public class GameController : MonoBehaviour
 		
 		yield return new WaitForSeconds(0.1f);
 		
-		ItemManager.SpawnItemNearPlayerPosition(Player.transform.position);
+		ItemManager.SpawnRandomItemNearPlayerPosition(Player.transform.position);
 		_nextSpawnTime = Random.Range(2f, 4f); // Vary when the next object spawns
 	}
 }
