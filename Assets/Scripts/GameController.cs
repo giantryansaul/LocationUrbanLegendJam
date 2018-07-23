@@ -39,7 +39,8 @@ public class GameController : MonoBehaviour
 			var hit = new RaycastHit();
 			var mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 			Physics.Raycast(mouseRay, out hit, Mathf.Infinity);
-			ItemTouched(hit.collider.gameObject);
+			if (hit.collider != null)
+				ObjectTouched(hit.collider.gameObject);
 		}
 		
 		// Touch controls
@@ -52,32 +53,40 @@ public class GameController : MonoBehaviour
 //		}
 	}
 
-	private void LocationTouched(GameObject obj)
-	{
-		if (obj.CompareTag("location"))
-		{
-			var location = obj.GetComponent<Location>();
-		}
-	}
-
-	private void ItemTouched(GameObject obj)
+	private void ObjectTouched(GameObject obj)
 	{
 		if (obj.CompareTag("item"))
 		{
-			var item = obj.GetComponent<ItemBehavior>();
-			// Pickup item UI goes here
-//			if (Inventory.CanAddToInventory())
-//			{
-//				ItemPickupMenu.PickupItem(item.ItemReference);
-//			}
-//			else
-//			{
-//				ItemPickupMenu.CannotPickupItem(item.ItemReference);
-//			}
-			Inventory.AddToInventory(item.ItemStoreId, item.ItemReference);
-			//EventManager.AddEvent("added item " + item.name)
-			Destroy(obj);
+			PickupItemMenu(obj);
 		}
+		
+		if (obj.CompareTag("location"))
+		{
+			EnterLocationMenu(obj);
+		}
+	}
+
+	private static void EnterLocationMenu(GameObject obj)
+	{
+		var location = obj.GetComponent<Location>();
+		// This would be where events are added, Ex:
+		//EventManager.EnteredLocation()
+	}
+
+	private void PickupItemMenu(GameObject obj)
+	{
+		var item = obj.GetComponent<ItemBehavior>();
+		// Pickup item UI goes here
+		if (Inventory.CanAddToInventory())
+		{
+			ItemPickupMenu.PickupItemMenu(item.ItemStoreId, obj);
+		}
+		else
+		{
+			ItemPickupMenu.CannotPickupItemMenu(item.ItemStoreId);
+		}
+		// This would be where events are added, Ex:
+		//EventManager.FoundItem()
 	}
 
 	private IEnumerator SpawnItemNearPlayer()
@@ -86,7 +95,7 @@ public class GameController : MonoBehaviour
 		
 		yield return new WaitForSeconds(0.1f);
 		
-		ItemManager.SpawnItemNearPlayerPosition(Player.transform.position);
+		ItemManager.SpawnRandomItemNearPlayerPosition(Player.transform.position);
 		_nextSpawnTime = Random.Range(2f, 4f); // Vary when the next object spawns
 	}
 }

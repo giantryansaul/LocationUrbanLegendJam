@@ -15,7 +15,7 @@ public class ItemManager : MonoBehaviour
 		PopulateAvailableItems();
 	}
 
-	public void SpawnItemNearPlayerPosition(Vector3 playerPosition, float minDist = 10f, float maxDist = 20.0f)
+	public void SpawnRandomItemNearPlayerPosition(Vector3 playerPosition, float minDist = 10f, float maxDist = 20.0f)
 	{
 		var itemIndex = _availableItems[Random.Range(0, _availableItems.Count)];
 		var item = Instantiate(_itemPrefab);
@@ -40,5 +40,10 @@ public class ItemManager : MonoBehaviour
 		pos.y = 5;
 		pos.z = center.y + Random.Range(minRadius, maxRadius) * Mathf.Cos(ang * Mathf.Deg2Rad);
 		return pos;
+	}
+
+	public Item GetItemById(int id)
+	{
+		return _itemStore[id];
 	}
 }
