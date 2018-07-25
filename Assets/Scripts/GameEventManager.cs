@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventManager : MonoBehaviour {
-    private List<Event> eventlist;
+public class GameEventManager : MonoBehaviour {
+    private List<GameEvent> eventlist;
 
 	// Use this for initialization
 	void Start () {
@@ -15,12 +15,12 @@ public class EventManager : MonoBehaviour {
 		
 	}
 
-    void addEventtoList(Event ev)
+    void addEventtoList(GameEvent ev)
     {
         eventlist.Add(ev);
     }
    
-    public List<Event> GetLog()
+    public List<GameEvent> GetLog()
     {
         return eventlist;
     }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Event : MonoBehaviour {
+public class GameEvent : MonoBehaviour {
     
     public Location location;
     public Item item;
     public float time;
-    private List<Event> eventList;
-    private EventManager em;
+    private List<GameEvent> eventList;
+    private GameEventManager em;
     //private action action
     public string action;
     public string log;
@@ -36,9 +36,9 @@ public class Event : MonoBehaviour {
     public string DisplayLog()
     {
         eventList = em.GetLog();
-        IEnumerable<Event> query = eventList.OrderBy(x => x.time);
+        IEnumerable<GameEvent> query = eventList.OrderBy(x => x.time);
 
-        foreach (Event itm in query)
+        foreach (GameEvent itm in query)
         {
             log += "You " + itm.action + " the " + itm.item.Name +  " at " + itm.location;
         }
