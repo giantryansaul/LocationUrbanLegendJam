@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2b9828aa3574e24874ab5cd5a1aff89, type: 3}
+  m_Name: GemstoneOfPowerItem
+  m_EditorClassIdentifier: 
+  Name: The Gemstone of Power
+  Description: A special gemstone that gives its user great power!
+  Model: {fileID: 1154098201033574, guid: 229181f242c67c74eb5ea60633f148f2, type: 2}
+  Common: 0
+  Image: {fileID: 21300000, guid: 68e0a7d32a99f944abd62abeed273a13, type: 3}
