@@ -10,10 +10,4 @@ public class Item : ScriptableObject
     public GameObject Model;
     public bool Common;
     public Sprite Image;
-
-    private void Awake()
-    {
-        if (!Common)
-            Model.GetComponent<MeshRenderer>().material.color = Color.yellow;
-    }
 }

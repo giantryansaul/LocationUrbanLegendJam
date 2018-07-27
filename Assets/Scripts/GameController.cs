@@ -51,6 +51,7 @@ public class GameController : MonoBehaviour
 //			Physics.Raycast(ray, out hit, Mathf.Infinity);
 //			ItemTouched(hit.collider.gameObject);
 //		}
+		
 	}
 
 	private void ObjectTouched(GameObject obj)
@@ -68,7 +69,7 @@ public class GameController : MonoBehaviour
 
 	private static void EnterLocationMenu(GameObject obj)
 	{
-		var location = obj.GetComponent<Location>();
+		var location = obj.GetComponent<LocationBehavior>();
 		// This would be where events are added, Ex:
 		//EventManager.EnteredLocation()
 	}

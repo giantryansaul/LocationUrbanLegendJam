@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Utils;
 
 public class Inventory : MonoBehaviour
 {
@@ -44,5 +46,10 @@ public class Inventory : MonoBehaviour
         var storeIndex = _items.Count - 1;
         var item = _itemManager.GetItemById(id);
         _itemsUiStore[storeIndex].GetComponent<ItemUi>().SetItem(item);
+    }
+
+    public Item[] GetAllItems()
+    {
+        return _items.Select(x => _itemManager.GetItemById(x)).ToArray();
     }
 }
