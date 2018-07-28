@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class LocationBehavior : MonoBehaviour
 {
@@ -13,7 +14,14 @@ public class LocationBehavior : MonoBehaviour
     private GameObject _itemModel;
     public int LocationStoreId;
     public Location LocationReference;
+    private bool _playerInLocation;
+    [SerializeField] private LocationUI _locationUi;
 
+    private void Start()
+    {
+        _playerInLocation = false;
+    }
+    
     public void InitializeLocation(Location location, int locationStoreId, Vector3 pos)
     {
         _itemModel = Instantiate(location.Model, transform);
@@ -22,12 +30,18 @@ public class LocationBehavior : MonoBehaviour
         DropZone = pos;
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (other.collider.CompareTag("Player"))
+        if (collider.CompareTag("Player"))
         {
-            Debug.Log("Player entered location");
+            GetComponentInChildren<MeshRenderer>().material.color = Color.red;
+            _playerInLocation = true;
         }
+    }
+
+    public bool OpenLocationMenu()
+    {
+        return _playerInLocation;
     }
 
     public bool Moved(Vector3 NewSpot)

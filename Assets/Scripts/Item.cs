@@ -10,4 +10,5 @@ public class Item : ScriptableObject
     public GameObject Model;
     public bool Common;
     public Sprite Image;
+    public string Usage;
 }

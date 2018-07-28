@@ -19,10 +19,10 @@ public class LocationManager : MonoBehaviour
         for (var i = 0; i < _locationStore.Length; i++)
         {
             var locationObj = Instantiate(_locationPrefab);
-            var pos = GameUtils.CreatePositionInCircle(Vector3.zero, 100f, 300f);
+//            var pos = GameUtils.CreatePositionInCircle(Vector3.zero, 5f, 10f);
+            var pos = new Vector3(-5f, 0f, -30f);
             locationObj.GetComponent<LocationBehavior>().InitializeLocation(_locationStore[i], i, pos);
             locationObj.transform.position = pos;
-            Debug.Log(pos);
             _locationsObjs.Add(locationObj);
         }
     }

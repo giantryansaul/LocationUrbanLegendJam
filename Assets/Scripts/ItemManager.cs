@@ -36,4 +36,9 @@ public class ItemManager : MonoBehaviour
 	{
 		return _itemStore[id];
 	}
+
+	public void UseItem(int id)
+	{
+		
+	}
 }

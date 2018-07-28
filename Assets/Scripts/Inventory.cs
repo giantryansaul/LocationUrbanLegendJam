@@ -52,4 +52,9 @@ public class Inventory : MonoBehaviour
     {
         return _items.Select(x => _itemManager.GetItemById(x)).ToArray();
     }
+
+    public int[] GetAllItemIds()
+    {
+        return _items.ToArray();
+    }
 }

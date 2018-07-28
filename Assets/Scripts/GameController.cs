@@ -10,6 +10,9 @@ public class GameController : MonoBehaviour
 	private ItemManager ItemManager;
 	[SerializeField] private Inventory Inventory;
 	[SerializeField] private PickupMenu ItemPickupMenu;
+	[SerializeField] private LocationUI _locationUi;
+
+	private bool _paused;
 
 	private float _timeSinceItemSpawn;
 	private float _nextSpawnTime;
@@ -18,10 +21,16 @@ public class GameController : MonoBehaviour
 	{
 		ItemManager = GetComponent<ItemManager>();
 		_nextSpawnTime = 2f;
+		_paused = false;
 	}
 	
 	// Main game loop
-	void Update () {
+	void Update () 
+	{
+		if (_paused)
+		{
+			return;
+		}
 
 		if (_timeSinceItemSpawn > _nextSpawnTime)
 		{
@@ -67,11 +76,17 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	private static void EnterLocationMenu(GameObject obj)
+	private void EnterLocationMenu(GameObject obj)
 	{
-		var location = obj.GetComponent<LocationBehavior>();
-		// This would be where events are added, Ex:
-		//EventManager.EnteredLocation()
+		_paused = obj.GetComponent<LocationBehavior>().OpenLocationMenu();
+		if (_paused)
+			_locationUi.EnterLocation(obj.gameObject.GetComponent<LocationBehavior>().LocationReference);
+	}
+	
+	// Access with event
+	public void Unpause()
+	{
+		_paused = true;
 	}
 
 	private void PickupItemMenu(GameObject obj)
